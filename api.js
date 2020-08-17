@@ -44,7 +44,7 @@ const main = async () => {
     });
 
     /* Students Delete */
-    app.delete("/StudentsList/:name", async function (req, res) {
+    app.delete("/StudentsList", async function (req, res) {
       res.status(200).send(await deleteStudentsToCollection(dataBase, req));
     });
 
@@ -122,7 +122,8 @@ let addToStudentsCollection = async (dataBase, req) => {
  * @returns the student name to delete
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
-  let studentName = req.params.name;
+  let studentName = req.body.nameToDelete;
+  console.log(studentName);
   let test = await dataBase
     .collection("StudentsList")
     .find({ name: studentName })

@@ -27,8 +27,8 @@
     </form>
 
     <form action="/StudentsList" method="DELETE">
-      <label for="name">Delete student</label>
-      <select name="name">
+      <label for="nameToDelete">Delete student</label>
+      <select name="nameToDelete">
         <% for (var i = 0; i < studentArray.length ; i++) { %>
             <option><%= studentArray[i].name %></option>
             <% } %>
