@@ -1,5 +1,6 @@
 // var bodyParser = require("body-parser");
 const fetch = require("node-fetch");
+const request = require("request")
 const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
 const ejs = require("ejs");
@@ -49,7 +50,7 @@ app.post("/StudentsList", async function (req, res) {
   res.redirect("StudentsList");
 });
 
-app.delete("StudentsList", async (req, res) => {
+app.post("/StudentsListDelete", async (req, res) => {
     fetch("http://localhost:8080/StudentsList", {
     method: "DELETE",
     headers: {
