@@ -32,3 +32,10 @@
     section li{
       list-style-type: none;
     }
+ header{
+     background-color: black;
+     color: white;
+     font-size: 25px;
+     text-align: center;
+     padding: 3% 3% 3% 3%;
+ }
