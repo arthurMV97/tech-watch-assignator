@@ -1,6 +1,7 @@
 const MongoCLient = require("mongodb").MongoClient;
 const express = require("express");
 const bodyParser = require("body-parser"); // use to parse the body in Json Format
+const colors = require("colors")
 
 const url = "mongodb://localhost:27017";
 const app = express();
@@ -11,9 +12,7 @@ const main = async () => {
   const dataBase = client.db("tech-watch-assignator");
 
   try {
-    /* Create Collection */
-    await dataBase.createCollection("Students");
-    await dataBase.createCollection("Groups");
+   
 
     /* ROUTES */
     app.listen(8080);
@@ -69,11 +68,10 @@ const main = async () => {
       res.status(200).send(await addToGroupsCollection(dataBase, req));
     });
 
-
   } catch (error) {
     console.log(error);
   } finally {
-    console.log("!==> Success <==! all is good");
+    console.log("!==> Success <==! all is good".magenta);
     await client.close();
   }
 };
