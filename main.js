@@ -27,7 +27,7 @@ app.get("/StudentsList", async function (req, res) {
 });
 
 app.post("/StudentsList", async function (req, res) {
-  fetch("http://localhost:8080/Students", {
+  fetch("http://localhost:8080/StudentsList", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -35,7 +35,6 @@ app.post("/StudentsList", async function (req, res) {
     },
     body: JSON.stringify({
       name: req.body.name,
-      group: "",
     }),
   })
     .then(function (response) {
