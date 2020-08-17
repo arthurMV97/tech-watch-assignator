@@ -72,7 +72,7 @@ const main = async () => {
     console.log(error);
   } finally {
     console.log("!==> Success <==! all is good".magenta);
-   
+
   }
 };
 main();
