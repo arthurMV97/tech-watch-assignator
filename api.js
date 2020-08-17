@@ -2,7 +2,6 @@ const MongoCLient = require("mongodb").MongoClient;
 const express = require("express");
 const bodyParser = require("body-parser"); // use to parse the body in Json Format
 const colors = require("colors")
-
 const url = "mongodb://localhost:27017";
 const app = express();
 
@@ -124,20 +123,13 @@ let addToStudentsCollection = async (dataBase, req) => {
 let deleteStudentsToCollection = async (dataBase, req) => {
   let studentName = req.body.nameToDelete;
   console.log(studentName);
-  let test = await dataBase
-    .collection("StudentsList")
-    .find({ name: studentName })
-    .toArray();
-  if (test.length > 0) {
+
     try {
       await dataBase.collection("StudentsList").deleteOne({ name: studentName });
     } catch (error) {
       console.log(error);
     }
     return studentName;
-  } else {
-    return "this student doesn't exist";
-  }
 };
 
 /**
