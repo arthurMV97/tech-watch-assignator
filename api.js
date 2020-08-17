@@ -12,8 +12,8 @@ const main = async () => {
 
   try {
     /* Create Collection */
-    await dataBase.createCollection("Students");
-    await dataBase.createCollection("Groups");
+    // await dataBase.createCollection("Students");
+    // await dataBase.createCollection("Groups");
 
     /* ROUTES */
     app.listen(8080);
