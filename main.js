@@ -49,6 +49,29 @@ app.post("/StudentsList", async function (req, res) {
   res.redirect("StudentsList");
 });
 
+app.delete("StudentsList", async (req, res) => {
+    fetch("http://localhost:8080/StudentsList", {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nameToDelete: req.body.nameToDelete,
+    }),
+  })
+  .then(function (response) {
+    return response.json();
+  })
+  .then(async function (sucess) {
+    console.log("This student be deleted of the collection: ", sucess.name);
+  })
+  .catch(function (error) {
+    console.log("Request failure: ", error);
+  });
+res.redirect("StudentsList");
+})
+
 //Starts the Express server with a callback
 app.listen(PORT, function (err) {
   if (!err) {
