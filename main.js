@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
 // STUDENTS
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
-  let studentData = await fetch("http://localhost:8080/Students");
+  let studentData = await fetch("http://localhost:8080/StudentsList");
   allStudents = await studentData.json();
   res.render("StudentsList.ejs", { studentArray: allStudents });
 });
