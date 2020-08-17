@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+</head>
+<body>
+    <h2>List of students</h2>
+
+    <ul>
+        <li>Alex</li>
+        <li>Tom</li>
+        <li>Max</li>
+        <li>Joe</li>
+        <li>Bob</li>
+        <li>Léa</li>
+        <li>Luc</li>
+    </ul>
+
+    <form action="/StudentsList" method="POST">
+    <label for="name">Add student</label>
+    <input type="text" name="name">
+    <input type="button" value="Add student">
+    </form>
+
+    <form action="/StudentsList" method="DELETE">
+        <label for="name">Delete student</label>
+        <select name="name" ></select>
+        <input type="button" value="Delete student">
+        </form>
+</body>
+</html>
