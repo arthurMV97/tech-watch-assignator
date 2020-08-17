@@ -12,7 +12,7 @@ const main = async () => {
   const dataBase = client.db("tech-watch-assignator");
 
   try {
-   
+
 
     /* ROUTES */
     app.listen(8080);
