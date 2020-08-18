@@ -97,10 +97,28 @@ app.get("/TechWatch", async function (req, res) {
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
 
+  // create array who contains all student name
+  const tech = req.body.tech
+    const num = req.body.number
+    const list = await fetch("http://localhost:8080/StudentsList")
+    const studentList = await list.json()
+    
+    let names = []
+    
+    for (let i = 0; i < num; i++) {
+ 
+        let random = Math.floor(Math.random() * studentList.length)
+        names.push(studentList[random].name)
+        studentList.splice(random, 1)
+        
+    }
+    
+
+
   
 
 
-  fetch("http://localhost:8080/TechWatch", {
+  await fetch("http://localhost:8080/TechWatch", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -110,6 +128,7 @@ app.post("/TechWatch", async function (req, res) {
       tech: req.body.tech,
       date: req.body.date,
       number: req.body.number,
+      names: names
     }),
   })
     .then(function (response) {
