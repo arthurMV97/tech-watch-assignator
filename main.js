@@ -19,6 +19,17 @@ app.get("/", function (req, res) {
   res.render("home.ejs");
 });
 
+app.get("/index", function (req, res) {
+  res.render("index.ejs");
+});
+
+app.get("/about", function (req, res) {
+  res.render("about.ejs");
+});
+
+app.get("/contact", function (req, res) {
+  res.render("contact.ejs");
+});
 // STUDENTS
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
@@ -27,6 +38,7 @@ app.get("/StudentsList", async function (req, res) {
   res.render("StudentsList.ejs", { studentArray: allStudents });
 });
 
+// ADD A STUDENT
 app.post("/StudentsList", async function (req, res) {
   fetch("http://localhost:8080/StudentsList", {
     method: "POST",
@@ -50,6 +62,7 @@ app.post("/StudentsList", async function (req, res) {
   res.redirect("StudentsList");
 });
 
+// DELETE A STUDENT
 app.post("/StudentsListDelete", async (req, res) => {
     fetch("http://localhost:8080/StudentsList", {
     method: "DELETE",
