@@ -2,14 +2,14 @@
  footer {
     background-color: black;
     color: white;
-    
-    padding: 5px 20px;
+    margin-top: 50vh;
+    padding: 5px 20px 5px 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
-    bottom: 0;
+    /* position: fixed;
+    bottom: 0; */
     width: 100%;
     
    
