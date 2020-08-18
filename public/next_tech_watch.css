@@ -1,0 +1,24 @@
+.title{
+    text-align: center;
+}
+.container{
+    padding: 5% 5% 5% 5%;
+}
+.container_title{
+    text-align: center;
+    text-decoration: underline;
+}
+
+.container_student{
+    align-content: flex-start;
+}
+.container_student h5{
+    font-weight: bold;
+}
+
+.container_date{
+    align-content: flex-end;
+}
+.container_date h5{
+    font-weight: bold;
+}
