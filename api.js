@@ -55,15 +55,14 @@ const main = async () => {
     });
     console.log("http://localhost:8080/TechWatch");
 
-    /* Groups name  must be completed */
-    app.get("/TechWatch/:name", async function (req, res) {
-      res.status(200).send(await searchByGroupTech(dataBase, req));
-    });
-
     /* Groups Post */
     app.post("/TechWatch", async function (req, res) {
       res.status(200).send(await addToGroupsCollection(dataBase, req));
     });
+
+
+
+
 
   } catch (error) {
     console.log(error);
@@ -160,7 +159,8 @@ let addToGroupsCollection = async (dataBase, req) => {
   let myObject = {
     groupsToAdd: req.body.tech,
     date: req.body.date,
-    number: req.body.number
+    number: req.body.number,
+    names: req.body.names
   }
   try {
     await dataBase.collection("Groups").insertOne(myObject);
