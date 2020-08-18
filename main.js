@@ -96,10 +96,6 @@ app.get("/TechWatch", async function (req, res) {
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
-  // create array who contains all student name
-  let studentData = await fetch("http://localhost:8080/StudentsList");
-  let studentJson = await studentData.json();
-  let allStudents = await studentJson.map((element) => element.name);
 
   
 
