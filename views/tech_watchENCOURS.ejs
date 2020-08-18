@@ -3,22 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="contact.css">
+    <title>Tech Watch Assignator</title>
+    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="navbar.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="next_tech_watch.css" />
   </head>
   <body>
     <canvas id="sakura"> </canvas>
     <div class="btnbg">
-      <h1 style="color: white;">Hello</h1>
+      <%- include('partial/navbar') %> <%- include('partial/next_tech_watch') %>
+
+      <h2>Add Tech Watch</h2>
+
+      <form action="/TechWatch" method="POST">
+        <label for="tech">Subject</label>
+        <input type="text" name="tech" />
+        <label for="date">Deadline</label>
+        <input type="date" name="date" />
+        <label for="number">Number students</label>
+        <input type="number" name="number" />
+        <button type="submit">Create Tech Watch</button>
+      </form>
+
+      <%- include('partial/footer') %>
     </div>
-
-
-
-
-
-
-
-
 
     <!-- sakura shader -->
     <script id="sakura_point_vsh" type="x-shader/x_vertex">
