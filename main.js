@@ -96,6 +96,7 @@ app.get("/TechWatch", async function (req, res) {
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
+
   // create array who contains all student name
   const tech = req.body.tech
     const num = req.body.number
@@ -112,6 +113,7 @@ app.post("/TechWatch", async function (req, res) {
         
     }
     
+
 
   
 
