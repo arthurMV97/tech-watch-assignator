@@ -9,13 +9,14 @@ async function test () {
    let tab = []
     for (let i = 0; i < allTech.length; i++) {
         let date = new Date(allTech[i].date)
-        tab.push(date)
+        tab.push({date: date, index: i})
     }
 
    tab.sort( (a,b)=> {
-       return a - b;
+       return a.date - b.date;
    })
-   console.log(tab, 'ee')
+  
+   console.log(tab)
 
 }
 
