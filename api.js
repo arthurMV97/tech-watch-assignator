@@ -105,7 +105,7 @@ let searchByGroupTech= async (dataBase, req) => {
  * @returns the student to add (input)
  */
 let addToStudentsCollection = async (dataBase, req) => {
-  let studentToAdd = req.body; //name: "Coco"
+  let studentToAdd = req.body; 
   try {
     await dataBase.collection("StudentsList").insertOne(studentToAdd);
   } catch (error) {
@@ -159,9 +159,13 @@ let showGroup = async (dataBase) => {
  * @param {*} req
  */
 let addToGroupsCollection = async (dataBase, req) => {
-  let groupsToAdd = req.body;
+  let myObject = {
+    groupsToAdd: req.body.tech,
+    date: req.body.date,
+    number: req.body.number
+  }
   try {
-    await dataBase.collection("Groups").insertOne(groupsToAdd);
+    await dataBase.collection("Groups").insertOne(myObject);
   } catch (error) {
     console.log(error);
   }
