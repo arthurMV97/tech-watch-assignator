@@ -91,7 +91,27 @@ allTech = [];
 app.get("/TechWatch", async function (req, res) {
   let techData = await fetch("http://localhost:8080/TechWatch");
   allTech = await techData.json();
-  res.render("tech_watch", { techArray: allTech });
+
+  let tab = []
+    for (let i = 0; i < allTech.length; i++) {
+        let date = new Date(allTech[i].date)
+        tab.push(date)
+    }
+
+   tab.sort( (a,b)=> {
+       return a - b;
+   })
+
+  res.render("tech_watch", { techArray: allTech, tab: tab });
+});
+
+//GET History Page
+
+app.get("/History", async function (req, res) {
+ let obj = await sortDates()  
+ console.log(obj)
+
+  await res.render("history", {techArray: allTech, newTab: obj.newTab, oldTab: obj.oldTab });
 });
 
 // POST TECH WATCH (GROUP)
@@ -156,3 +176,38 @@ app.listen(PORT, function (err) {
     console.log(JSON.stringify(err));
   }
 });
+
+
+async function sortDates() {
+  let techData = await fetch("http://localhost:8080/TechWatch");
+  allTech = await techData.json();
+  //---SORT DATES
+  let tab = []
+  let oldTab = []
+  let newTab = []
+  const todayDate = new Date;
+  for (let i = 0; i < allTech.length; i++) {
+    let date = new Date(allTech[i].date)
+    tab.push({date: date, index: i})
+}
+
+tab.sort((a,b)=> {
+   return a.date - b.date;
+})
+
+for (let i = 0; i < tab.length; i++) {
+  if (todayDate > tab[i].date) {
+    oldTab.push(allTech[tab[i].index])
+  }
+}
+for (let i = 0; i < tab.length; i++) {
+  if (todayDate < tab[i].date) {
+    newTab.push(allTech[tab[i].index])
+  }
+}
+let obj = {
+  oldTab: oldTab,
+  newTab: newTab
+}
+return obj
+}
