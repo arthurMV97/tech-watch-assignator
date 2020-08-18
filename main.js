@@ -86,6 +86,14 @@ app.post("/StudentsListDelete", async (req, res) => {
 res.redirect("StudentsList");
 })
 
+//TECH WATCH
+allTech = []
+app.get("/TechWatch", async function (req, res) {
+  let techData = await fetch("http://localhost:8080/TechWatch");
+  allTech = await techData.json();
+  res.render("tech_watch.ejs", { techArray: allTech });
+});
+
 //Starts the Express server with a callback
 app.listen(PORT, function (err) {
   if (!err) {

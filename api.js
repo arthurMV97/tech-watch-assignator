@@ -52,18 +52,18 @@ const main = async () => {
     ---------------------------------------------------------*/
 
     /* Groups */
-    app.get("/Groups", async function (req, res) {
+    app.get("/TechWatch", async function (req, res) {
       res.status(200).send(await showGroup(dataBase));
     });
-    console.log("http://localhost:8080/Groups");
+    console.log("http://localhost:8080/TechWatch");
 
     /* Groups name  must be completed */
-    app.get("/Groups/:name", async function (req, res) {
+    app.get("/TechWatch/:name", async function (req, res) {
       res.status(200).send(await searchByGroupTech(dataBase, req));
     });
 
     /* Groups Post */
-    app.post("/Groups", async function (req, res) {
+    app.post("/TechWatch", async function (req, res) {
       res.status(200).send(await addToGroupsCollection(dataBase, req));
     });
 
