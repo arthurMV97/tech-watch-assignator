@@ -62,7 +62,7 @@ app.post("/StudentsListDelete", async (req, res) => {
     }),
   })
   .then(function (response) {
-    return response.json();
+    return response.text();
   })
   .then(async function (sucess) {
     console.log("This student be deleted of the collection: ", sucess.name);

@@ -122,7 +122,7 @@ let addToStudentsCollection = async (dataBase, req) => {
  */
 let deleteStudentsToCollection = async (dataBase, req) => {
   let studentName = req.body.nameToDelete;
-  console.log(studentName);
+  // console.log(studentName);
 
     try {
       await dataBase.collection("StudentsList").deleteOne({ name: studentName });
