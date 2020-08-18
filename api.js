@@ -11,8 +11,6 @@ const main = async () => {
   const dataBase = client.db("tech-watch-assignator");
 
   try {
-
-
     /* ROUTES */
     app.listen(8080);
 
@@ -169,6 +167,6 @@ let addToGroupsCollection = async (dataBase, req) => {
   } catch (error) {
     console.log(error);
   }
-  return groupsToAdd;
+  return myObject;
 };
 
