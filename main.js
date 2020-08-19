@@ -1,4 +1,3 @@
-
 const fetch = require("node-fetch");
 const request = require("request");
 const express = require("express"); //Imports the express module
@@ -91,7 +90,6 @@ app.post("/StudentsListDelete", async (req, res) => {
   res.redirect("StudentsList");
 });
 
-
 /*---------------------------------------------------------
 ------------------------- TECH WATCH ----------------------
 ---------------------------------------------------------*/
@@ -104,11 +102,9 @@ app.get("/TechWatch", async function (req, res) {
 
 //GET HISTORY TECH
 app.get("/History", async function (req, res) {
-
-  let obj = await sortDates()
-   await res.render("history", {newTab: obj.newTab, oldTab: obj.oldTab });
- });
-
+  let obj = await sortDates();
+  await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab });
+});
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
@@ -139,9 +135,7 @@ app.post("/TechWatch", async function (req, res) {
       return response.json();
     })
     .then(async function (sucess) {
-      console.log(
-        `This Tech be add to the collection: ${success.name} `,
-      );
+      console.log(`This Tech be add to the collection: ${success.name} `);
     })
     .catch(function (error) {
       console.log("Request failure: ", error);
@@ -174,10 +168,8 @@ async function sortDates() {
   let newTab = [];
   const todayDate = new Date();
   for (let i = 0; i < allTech.length; i++) {
-
-    let date = new Date(allTech[i].date)
-    tab.push({date: date, index: i})
-
+    let date = new Date(allTech[i].date);
+    tab.push({ date: date, index: i });
   }
 
   tab.sort((a, b) => {
@@ -187,22 +179,17 @@ async function sortDates() {
   for (let i = 0; i < tab.length; i++) {
     if (todayDate > tab[i].date) {
       oldTab.push(allTech[tab[i].index]);
+    } else {
+      newTab.push(allTech[tab[i].index]);
     }
   }
 
-  else {
-    newTab.push(allTech[tab[i].index])
-  }
+  let obj = {
+    oldTab: oldTab,
+    newTab: newTab,
+  };
+  return obj;
 }
-
-let obj = {
-  oldTab: oldTab,
-  newTab: newTab
-}
-return obj
-
-}
-
 
 /**
  * @return a list of student available

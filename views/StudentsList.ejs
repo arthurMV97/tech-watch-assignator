@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="navbar.css" />
     <link rel="stylesheet" href="footer.css" />
     <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="background.css" />
     <title>Student List</title>
   </head>
   <style>
@@ -19,8 +19,13 @@
     .mainDiv {
       text-align: center;
       color: black;
+      border-radius: 30px 30px 30px 30px;
+      box-shadow: 5px 5px 10px 3px #4d4a4a;
+      padding: 3% 3% 3% 3%;
+      margin: 5% 15% 0% 15%;
+      margin-bottom: 5%;
+      background-color: rgba(243, 181, 217, 0.6);
     }
-
   </style>
   <body>
     <%- include('partial/navbar') %>
@@ -50,9 +55,9 @@
         </select>
         <button type="submit">Delete student</button>
       </form>
-      <%- include('partial/footer') %>
+      
     </div>
-
+    <%- include('partial/footer') %>
     <div class="bg"></div>
     <div class="bg bg2"></div>
     <div class="bg bg3"></div>
