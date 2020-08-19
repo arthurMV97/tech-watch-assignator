@@ -50,7 +50,13 @@
         </div>
         <% }} %>
       </div>
-
+      <div>
+        <ul>
+        <% list.forEach( e=> { %>
+          <li><%= e %></li>
+        <% }) %>
+      </ul>
+      </div>
 
       <%- include('partial/footer') %>
       <div class="bg"></div>
