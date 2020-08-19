@@ -18,13 +18,16 @@
   <body>
 
       <%- include('partial/navbar') %>
-      <h1>My Tech-watch Assignator</h1>
-      <h2>Welcome tech-watch user !</h2>
-      <p>On this page you could take a look to the next tech-watch we will assist. You can find witch students will have to do the next
+
+      <div id="central">
+        <h2>Welcome tech-watch user !</h2>
+        <p>On this page you could take a look to the next tech-watch we will assist. You can find witch students will have to do the next
         presentation and when. </p>
-      <p>Also, as you can see, above this section there is a menu. This menu offer you diverse options like: take a look about the tech-watch we
+        <p>Also, as you can see, above this section there is a menu. This menu offer you diverse options like: take a look about the tech-watch we
         had already assist; see the list of students availaible for do a tech-watch; a page for create the next tech-watch. </p>
-      <p>Don’t be shy and try to go on diverses part of the website !</p>
+        <p>Don’t be shy and try to go on diverses part of the website !</p>
+      </div>
+      
 
       <% for (let i = 0; i < 2; i++) { %>
 
@@ -50,6 +53,9 @@
 
 
       <%- include('partial/footer') %>
+      <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
 
 
   </body>
