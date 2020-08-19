@@ -4,24 +4,19 @@ const request = require("request");
 const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
 const ejs = require("ejs");
-
 const PORT = 3000;
-
 /*---------------------------------------------------------
 ------------------------- MIDDLEWARE ----------------------
 ---------------------------------------------------------*/
 app.use(express.urlencoded({ extended: true })); // allow us to receive data from formulaire
 app.use(express.json()); // allow us to work with json format
-
 app.set("view engine", "ejs"); // the view engine in type of ejs
 app.use(express.static("public")); // mention the public directory from which you are serving the static files. Like css/js/image
-
-
 /*---------------------------------------------------------
 ------------------------- ROUTE ---------------------------
 ---------------------------------------------------------*/
 
-// ROUTE
+// HOME
 app.get("/", async function (req, res) {
   obj = await sortDates()
   list = await changedList()
@@ -29,6 +24,7 @@ app.get("/", async function (req, res) {
 
 });
 
+// ABOUT
 app.get("/about", function (req, res) {
   res.render("about.ejs");
 });
@@ -36,6 +32,7 @@ app.get("/about", function (req, res) {
 /*---------------------------------------------------------
 ------------------------- STUDENT PART --------------------
 ---------------------------------------------------------*/
+// ADD STUDENT LIST
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
   let studentData = await fetch("http://localhost:8080/StudentsList");
@@ -43,7 +40,7 @@ app.get("/StudentsList", async function (req, res) {
   res.render("StudentsList.ejs", { studentArray: allStudents });
 });
 
-// ADD A STUDENT
+// POST STUDENT
 app.post("/StudentsList", async function (req, res) {
   fetch("http://localhost:8080/StudentsList", {
     method: "POST",
@@ -104,22 +101,16 @@ app.get("/TechWatch", async function (req, res) {
 });
 
 //GET HISTORY TECH
-
 app.get("/History", async function (req, res) {
   let obj = await sortDates()
-  console.log(obj)
- 
    await res.render("history", {newTab: obj.newTab, oldTab: obj.oldTab });
  });
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
-  // create array who contains all student name
-  
   const num = req.body.number;
   const list = await fetch("http://localhost:8080/StudentsList");
   const studentList = await list.json();
-
   let names = [];
 
   for (let i = 0; i < num; i++) {
@@ -146,10 +137,7 @@ app.post("/TechWatch", async function (req, res) {
     })
     .then(async function (sucess) {
       console.log(
-        "This Tech be add to the collection: ",
-        sucess.name,
-        sucess.date,
-        sucess.number
+        `This Tech be add to the collection: ${success.name} `,
       );
     })
     .catch(function (error) {
@@ -183,7 +171,7 @@ async function sortDates() {
   for (let i = 0; i < allTech.length; i++) {
     let date = new Date(allTech[i].date)
     tab.push({date: date, index: i})
-}
+  }
 
 tab.sort((a,b)=> {
    return a.date - b.date;
@@ -193,17 +181,15 @@ for (let i = 0; i < tab.length; i++) {
   if (todayDate > tab[i].date) {
     oldTab.push(allTech[tab[i].index])
   }
-}
-for (let i = 0; i < tab.length; i++) {
-  if (todayDate < tab[i].date) {
+  else {
     newTab.push(allTech[tab[i].index])
   }
 }
+
 let obj = {
   oldTab: oldTab,
   newTab: newTab
 }
-
 return obj
 }
 
