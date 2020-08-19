@@ -1,3 +1,7 @@
+h1 {
+  color: white;
+  text-align: center;
+}
 .title {
   text-align: center;
 }
@@ -5,7 +9,6 @@
   display: flex;
   flex-direction: column;
   padding: 10% 25% 10% 25%;
-  
 }
 
 .container_title {
@@ -23,7 +26,7 @@
   box-shadow: 5px 5px 10px 3px #4d4a4a;
   padding: 1% 8% 1% 8%;
   margin-bottom: 5%;
-  background-color: rgba(243, 181, 217, 0.6)
+  background-color: rgba(243, 181, 217, 0.6);
 }
 .container_student {
   display: flex;
@@ -41,3 +44,7 @@
 .date {
   padding: 0% 1%;
 }
+#central{
+  text-align: center;
+}
+
