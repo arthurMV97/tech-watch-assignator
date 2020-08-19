@@ -16,11 +16,18 @@ app.use(express.json()); // allow us to work with json format
 app.set("view engine", "ejs"); // the view engine in type of ejs
 app.use(express.static("public")); // mention the public directory from which you are serving the static files. Like css/js/image
 
+
 /*---------------------------------------------------------
 ------------------------- ROUTE ---------------------------
 ---------------------------------------------------------*/
 app.get("/", function (req, res) {
   res.render("home.ejs");
+
+// ROUTE
+app.get("/", async function (req, res) {
+  obj = await sortDates()
+  res.render("home.ejs", {newTab: obj.newTab});
+
 });
 
 app.get("/about", function (req, res) {
@@ -93,33 +100,13 @@ app.post("/StudentsListDelete", async (req, res) => {
 //TECH WATCH
 allTech = [];
 app.get("/TechWatch", async function (req, res) {
-  let techData = await fetch("http://localhost:8080/TechWatch");
-  allTech = await techData.json();
 
-  let tab = [];
-  for (let i = 0; i < allTech.length; i++) {
-    let date = new Date(allTech[i].date);
-    tab.push(date);
-  }
-
-  tab.sort((a, b) => {
-    return a - b;
-  });
-
-  res.render("tech_watch", { techArray: allTech, tab: tab });
 });
 
 //GET HISTORY TECH
 
 app.get("/History", async function (req, res) {
-  let obj = await sortDates();
-  console.log(obj);
 
-  await res.render("history", {
-    techArray: allTech,
-    newTab: obj.newTab,
-    oldTab: obj.oldTab,
-  });
 });
 
 // POST TECH WATCH (GROUP)
