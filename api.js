@@ -61,9 +61,6 @@ const main = async () => {
     });
 
 
-
-
-
   } catch (error) {
     console.log(error);
   } finally {
@@ -76,24 +73,6 @@ main();
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
 
-/**
- * @summary find in the Groups collection the input, then create an array, if the input does not exist return an error message else return the Groups find
- * @param {*} dataBase
- * @param {*} req
- * @returns the group we were looking for
- */
-let searchByGroupTech= async (dataBase, req) => {
-  const nameOfGroup = await dataBase
-    .collection("Groups")
-    .find({ name: req.params.name })
-    .toArray();
-
-  if (nameOfGroup.length != 0) {
-    return nameOfGroup;
-  } else {
-    return "this group does not exist";
-  }
-};
 
 /**
  * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
@@ -138,6 +117,10 @@ let showStudent = async (dataBase) => {
   const nameOfStudent = await dataBase.collection("StudentsList").find().toArray();
   return nameOfStudent;
 };
+
+
+
+
 
 /**
  * @summary read the Groups collection and assign  the content to nameOfGroup

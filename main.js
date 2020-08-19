@@ -7,30 +7,29 @@ const ejs = require("ejs");
 
 const PORT = 3000;
 
-// middleware
+/*---------------------------------------------------------
+------------------------- MIDDLEWARE ----------------------
+---------------------------------------------------------*/
 app.use(express.urlencoded({ extended: true })); // allow us to receive data from formulaire
 app.use(express.json()); // allow us to work with json format
 
 app.set("view engine", "ejs"); // the view engine in type of ejs
 app.use(express.static("public")); // mention the public directory from which you are serving the static files. Like css/js/image
 
-// ROUTE
+/*---------------------------------------------------------
+------------------------- ROUTE ---------------------------
+---------------------------------------------------------*/
 app.get("/", function (req, res) {
   res.render("home.ejs");
-});
-
-app.get("/index", function (req, res) {
-  res.render("index.ejs");
 });
 
 app.get("/about", function (req, res) {
   res.render("about.ejs");
 });
 
-app.get("/contact", function (req, res) {
-  res.render("contact.ejs");
-});
-// STUDENTS
+/*---------------------------------------------------------
+------------------------- STUDENT PART --------------------
+---------------------------------------------------------*/
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
   let studentData = await fetch("http://localhost:8080/StudentsList");
@@ -86,57 +85,58 @@ app.post("/StudentsListDelete", async (req, res) => {
   res.redirect("StudentsList");
 });
 
+
+/*---------------------------------------------------------
+------------------------- TECH WATCH ----------------------
+---------------------------------------------------------*/
+
 //TECH WATCH
 allTech = [];
 app.get("/TechWatch", async function (req, res) {
   let techData = await fetch("http://localhost:8080/TechWatch");
   allTech = await techData.json();
 
-  let tab = []
-    for (let i = 0; i < allTech.length; i++) {
-        let date = new Date(allTech[i].date)
-        tab.push(date)
-    }
+  let tab = [];
+  for (let i = 0; i < allTech.length; i++) {
+    let date = new Date(allTech[i].date);
+    tab.push(date);
+  }
 
-   tab.sort( (a,b)=> {
-       return a - b;
-   })
+  tab.sort((a, b) => {
+    return a - b;
+  });
 
   res.render("tech_watch", { techArray: allTech, tab: tab });
 });
 
-//GET History Page
+//GET HISTORY TECH
 
 app.get("/History", async function (req, res) {
- let obj = await sortDates()  
- console.log(obj)
+  let obj = await sortDates();
+  console.log(obj);
 
-  await res.render("history", {techArray: allTech, newTab: obj.newTab, oldTab: obj.oldTab });
+  await res.render("history", {
+    techArray: allTech,
+    newTab: obj.newTab,
+    oldTab: obj.oldTab,
+  });
 });
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
-
   // create array who contains all student name
-  const tech = req.body.tech
-    const num = req.body.number
-    const list = await fetch("http://localhost:8080/StudentsList")
-    const studentList = await list.json()
-    
-    let names = []
-    
-    for (let i = 0; i < num; i++) {
- 
-        let random = Math.floor(Math.random() * studentList.length)
-        names.push(studentList[random].name)
-        studentList.splice(random, 1)
-        
-    }
-    
+  const tech = req.body.tech;
+  const num = req.body.number;
+  const list = await fetch("http://localhost:8080/StudentsList");
+  const studentList = await list.json();
 
+  let names = [];
 
-  
-
+  for (let i = 0; i < num; i++) {
+    let random = Math.floor(Math.random() * studentList.length);
+    names.push(studentList[random].name);
+    studentList.splice(random, 1);
+  }
 
   await fetch("http://localhost:8080/TechWatch", {
     method: "POST",
@@ -148,7 +148,7 @@ app.post("/TechWatch", async function (req, res) {
       tech: req.body.tech,
       date: req.body.date,
       number: req.body.number,
-      names: names
+      names: names,
     }),
   })
     .then(function (response) {
@@ -178,36 +178,41 @@ app.listen(PORT, function (err) {
 });
 
 
+
+/*---------------------------------------------------------
+------------------------- FUNCTION PART -------------------
+---------------------------------------------------------*/
+
 async function sortDates() {
   let techData = await fetch("http://localhost:8080/TechWatch");
   allTech = await techData.json();
   //---SORT DATES
-  let tab = []
-  let oldTab = []
-  let newTab = []
-  const todayDate = new Date;
+  let tab = [];
+  let oldTab = [];
+  let newTab = [];
+  const todayDate = new Date();
   for (let i = 0; i < allTech.length; i++) {
-    let date = new Date(allTech[i].date)
-    tab.push({date: date, index: i})
-}
-
-tab.sort((a,b)=> {
-   return a.date - b.date;
-})
-
-for (let i = 0; i < tab.length; i++) {
-  if (todayDate > tab[i].date) {
-    oldTab.push(allTech[tab[i].index])
+    let date = new Date(allTech[i].date);
+    tab.push({ date: date, index: i });
   }
-}
-for (let i = 0; i < tab.length; i++) {
-  if (todayDate < tab[i].date) {
-    newTab.push(allTech[tab[i].index])
+
+  tab.sort((a, b) => {
+    return a.date - b.date;
+  });
+
+  for (let i = 0; i < tab.length; i++) {
+    if (todayDate > tab[i].date) {
+      oldTab.push(allTech[tab[i].index]);
+    }
   }
-}
-let obj = {
-  oldTab: oldTab,
-  newTab: newTab
-}
-return obj
+  for (let i = 0; i < tab.length; i++) {
+    if (todayDate < tab[i].date) {
+      newTab.push(allTech[tab[i].index]);
+    }
+  }
+  let obj = {
+    oldTab: oldTab,
+    newTab: newTab,
+  };
+  return obj;
 }
