@@ -24,7 +24,8 @@ app.use(express.static("public")); // mention the public directory from which yo
 // ROUTE
 app.get("/", async function (req, res) {
   obj = await sortDates()
-  res.render("home.ejs", {newTab: obj.newTab});
+
+  await res.render("home.ejs", {newTab: obj.newTab});
 
 });
 
@@ -52,6 +53,7 @@ app.post("/StudentsList", async function (req, res) {
     },
     body: JSON.stringify({
       name: req.body.name,
+      assign: false
     }),
   })
     .then(function (response) {
@@ -113,7 +115,7 @@ app.get("/History", async function (req, res) {
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
   // create array who contains all student name
-  const tech = req.body.tech;
+  
   const num = req.body.number;
   const list = await fetch("http://localhost:8080/StudentsList");
   const studentList = await list.json();
@@ -201,5 +203,6 @@ let obj = {
   oldTab: oldTab,
   newTab: newTab
 }
+
 return obj
 }
