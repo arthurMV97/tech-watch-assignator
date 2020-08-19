@@ -5,7 +5,6 @@ const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
 const ejs = require("ejs");
 const PORT = 3000;
-
 /*---------------------------------------------------------
 ------------------------- MIDDLEWARE ----------------------
 ---------------------------------------------------------*/
@@ -34,7 +33,8 @@ app.get("/about", function (req, res) {
 ------------------------- STUDENT PART --------------------
 ---------------------------------------------------------*/
 
-// ADD STUDENTLIST
+// ADD STUDENT LIST
+
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
   let studentData = await fetch("http://localhost:8080/StudentsList");
@@ -104,11 +104,11 @@ app.get("/TechWatch", async function (req, res) {
 
 //GET HISTORY TECH
 app.get("/History", async function (req, res) {
-  let obj = await sortDates();
-  console.log(obj);
 
-  await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab });
-});
+  let obj = await sortDates()
+   await res.render("history", {newTab: obj.newTab, oldTab: obj.oldTab });
+ });
+
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
@@ -140,10 +140,7 @@ app.post("/TechWatch", async function (req, res) {
     })
     .then(async function (sucess) {
       console.log(
-        "This Tech be add to the collection: ",
-        sucess.name,
-        sucess.date,
-        sucess.number
+        `This Tech be add to the collection: ${success.name} `,
       );
     })
     .catch(function (error) {
@@ -177,8 +174,10 @@ async function sortDates() {
   let newTab = [];
   const todayDate = new Date();
   for (let i = 0; i < allTech.length; i++) {
-    let date = new Date(allTech[i].date);
-    tab.push({ date: date, index: i });
+
+    let date = new Date(allTech[i].date)
+    tab.push({date: date, index: i})
+
   }
 
   tab.sort((a, b) => {
@@ -190,17 +189,18 @@ async function sortDates() {
       oldTab.push(allTech[tab[i].index]);
     }
   }
-  for (let i = 0; i < tab.length; i++) {
-    if (todayDate < tab[i].date) {
-      newTab.push(allTech[tab[i].index]);
-    }
-  }
-  let obj = {
-    oldTab: oldTab,
-    newTab: newTab,
-  };
 
-  return obj;
+  else {
+    newTab.push(allTech[tab[i].index])
+  }
+}
+
+let obj = {
+  oldTab: oldTab,
+  newTab: newTab
+}
+return obj
+
 }
 
 
