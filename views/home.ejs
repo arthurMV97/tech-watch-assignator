@@ -29,8 +29,8 @@
       </div>
       
 
-      <% for (let i = 0; i < 2; i++) { %>
-
+        <% for (let i=0; i < 2; i++) { %>
+         <% if (newTab[i]){ %>
         <div class="sousContainer" style="margin:0 20% 2% 20%;">
           <h3 class="container_title"><%= newTab[i].groupsToAdd %></h3>
           
@@ -48,7 +48,7 @@
           </div>
     
         </div>
-        <% } %>
+        <% }} %>
       </div>
 
 
