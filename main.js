@@ -1,4 +1,4 @@
-// var bodyParser = require("body-parser");
+
 const fetch = require("node-fetch");
 const request = require("request");
 const express = require("express"); //Imports the express module
@@ -12,16 +12,16 @@ app.use(express.urlencoded({ extended: true })); // allow us to receive data fro
 app.use(express.json()); // allow us to work with json format
 app.set("view engine", "ejs"); // the view engine in type of ejs
 app.use(express.static("public")); // mention the public directory from which you are serving the static files. Like css/js/image
+
 /*---------------------------------------------------------
 ------------------------- ROUTE ---------------------------
 ---------------------------------------------------------*/
 
 // HOME
 app.get("/", async function (req, res) {
-  obj = await sortDates()
-  list = await changedList()
-  res.render("home.ejs", {newTab: obj.newTab, list: list});
-
+  obj = await sortDates();
+  list = await changedList();
+  res.render("home.ejs", { newTab: obj.newTab, list: list });
 });
 
 // ABOUT
@@ -32,7 +32,9 @@ app.get("/about", function (req, res) {
 /*---------------------------------------------------------
 ------------------------- STUDENT PART --------------------
 ---------------------------------------------------------*/
+
 // ADD STUDENT LIST
+
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
   let studentData = await fetch("http://localhost:8080/StudentsList");
@@ -50,7 +52,7 @@ app.post("/StudentsList", async function (req, res) {
     },
     body: JSON.stringify({
       name: req.body.name,
-      assign: false
+      assign: false,
     }),
   })
     .then(function (response) {
@@ -96,15 +98,17 @@ app.post("/StudentsListDelete", async (req, res) => {
 
 //TECH WATCH
 app.get("/TechWatch", async function (req, res) {
-  let obj = await sortDates()
- res.render("tech_watch", {newTab: obj.newTab});
+  let obj = await sortDates();
+  res.render("tech_watch", { newTab: obj.newTab });
 });
 
 //GET HISTORY TECH
 app.get("/History", async function (req, res) {
+
   let obj = await sortDates()
    await res.render("history", {newTab: obj.newTab, oldTab: obj.oldTab });
  });
+
 
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
@@ -112,7 +116,6 @@ app.post("/TechWatch", async function (req, res) {
   const list = await fetch("http://localhost:8080/StudentsList");
   const studentList = await list.json();
   let names = [];
-
   for (let i = 0; i < num; i++) {
     let random = Math.floor(Math.random() * studentList.length);
     names.push(studentList[random].name);
@@ -155,32 +158,38 @@ app.listen(PORT, function (err) {
   }
 });
 
-
-
 /*---------------------------------------------------------
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
+
+/**
+ * @returns object containing two array of date (old and new)
+ */
 async function sortDates() {
   let techData = await fetch("http://localhost:8080/TechWatch");
   let allTech = await techData.json();
   //---SORT DATES
-  let tab = []
-  let oldTab = []
-  let newTab = []
-  const todayDate = new Date;
+  let tab = [];
+  let oldTab = [];
+  let newTab = [];
+  const todayDate = new Date();
   for (let i = 0; i < allTech.length; i++) {
+
     let date = new Date(allTech[i].date)
     tab.push({date: date, index: i})
+
   }
 
-tab.sort((a,b)=> {
-   return a.date - b.date;
-})
+  tab.sort((a, b) => {
+    return a.date - b.date;
+  });
 
-for (let i = 0; i < tab.length; i++) {
-  if (todayDate > tab[i].date) {
-    oldTab.push(allTech[tab[i].index])
+  for (let i = 0; i < tab.length; i++) {
+    if (todayDate > tab[i].date) {
+      oldTab.push(allTech[tab[i].index]);
+    }
   }
+
   else {
     newTab.push(allTech[tab[i].index])
   }
@@ -191,24 +200,29 @@ let obj = {
   newTab: newTab
 }
 return obj
+
 }
 
+
+/**
+ * @return a list of student available
+ */
 async function changedList() {
-  let newListGroup = []
-  let newListStudents = []
+  let newListGroup = [];
+  let newListStudents = [];
   let techData = await fetch("http://localhost:8080/TechWatch");
   let allTech = await techData.json();
   const list = await fetch("http://localhost:8080/StudentsList");
   const studentList = await list.json();
 
-  allTech.forEach(e => {
-    e.names.forEach(el => {
-      newListGroup.push(el)
-    })
-  })
-studentList.forEach(e => {
-  newListStudents.push(e.name)
-})
-let finalList = newListStudents.filter(e => !newListGroup.includes(e))
-return finalList
+  allTech.forEach((e) => {
+    e.names.forEach((el) => {
+      newListGroup.push(el);
+    });
+  });
+  studentList.forEach((e) => {
+    newListStudents.push(e.name);
+  });
+  let finalList = newListStudents.filter((e) => !newListGroup.includes(e));
+  return finalList;
 }
