@@ -24,8 +24,8 @@ app.use(express.static("public")); // mention the public directory from which yo
 // ROUTE
 app.get("/", async function (req, res) {
   obj = await sortDates()
-
-  await res.render("home.ejs", {newTab: obj.newTab});
+  list = await changedList()
+  res.render("home.ejs", {newTab: obj.newTab, list: list});
 
 });
 
@@ -205,4 +205,24 @@ let obj = {
 }
 
 return obj
+}
+
+async function changedList() {
+  let newListGroup = []
+  let newListStudents = []
+  let techData = await fetch("http://localhost:8080/TechWatch");
+  let allTech = await techData.json();
+  const list = await fetch("http://localhost:8080/StudentsList");
+  const studentList = await list.json();
+
+  allTech.forEach(e => {
+    e.names.forEach(el => {
+      newListGroup.push(el)
+    })
+  })
+studentList.forEach(e => {
+  newListStudents.push(e.name)
+})
+let finalList = newListStudents.filter(e => !newListGroup.includes(e))
+return finalList
 }
