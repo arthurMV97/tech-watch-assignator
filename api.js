@@ -1,3 +1,6 @@
+// import helper class containing all functions CRUD (Create(post) Read(get) Update(put) Delete)
+const Utils = require("./utils/utils.js");
+
 const MongoCLient = require("mongodb").MongoClient;
 const express = require("express");
 const bodyParser = require("body-parser"); // use to parse the body in Json Format
@@ -30,19 +33,19 @@ const main = async () => {
 
     /* Students */
     app.get("/StudentsList", async function (req, res) {
-      res.status(200).send(await showStudent(dataBase));
+      res.status(200).send(await Utils.showStudent(dataBase));
     });
 
     console.log("http://localhost:8080/StudentsList");
 
     /* Students POST - Add a student */
     app.post("/StudentsList", async function (req, res) {
-      res.status(200).send(await addToStudentsCollection(dataBase, req));
+      res.status(200).send(await Utils.addToStudentsCollection(dataBase, req));
     });
 
     /* Students Delete */
     app.delete("/StudentsList", async function (req, res) {
-      res.status(200).send(await deleteStudentsToCollection(dataBase, req));
+      res.status(200).send(await Utils.deleteStudentsToCollection(dataBase, req));
     });
 
     /*---------------------------------------------------------
@@ -51,13 +54,13 @@ const main = async () => {
 
     /* Groups */
     app.get("/TechWatch", async function (req, res) {
-      res.status(200).send(await showGroup(dataBase));
+      res.status(200).send(await Utils.showGroup(dataBase));
     });
     console.log("http://localhost:8080/TechWatch");
 
     /* Groups Post */
     app.post("/TechWatch", async function (req, res) {
-      res.status(200).send(await addToGroupsCollection(dataBase, req));
+      res.status(200).send(await Utils.addToGroupsCollection(dataBase, req));
     });
 
 
@@ -69,87 +72,87 @@ const main = async () => {
 };
 main();
 
-/*---------------------------------------------------------
-------------------------- FUNCTION PART -------------------
----------------------------------------------------------*/
+// /*---------------------------------------------------------
+// ------------------------- FUNCTION PART -------------------
+// ---------------------------------------------------------*/
 
 
-/**
- * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
- * @param {*} dataBase
- * @param {*} req
- * @returns the student to add (input)
- */
-let addToStudentsCollection = async (dataBase, req) => {
-  let studentToAdd = req.body; 
-  try {
-    await dataBase.collection("StudentsList").insertOne(studentToAdd);
-  } catch (error) {
-    console.log(error);
-  }
-  return studentToAdd;
-};
+// /**
+//  * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
+//  * @param {*} dataBase
+//  * @param {*} req
+//  * @returns the student to add (input)
+//  */
+// let addToStudentsCollection = async (dataBase, req) => {
+//   let studentToAdd = req.body; 
+//   try {
+//     await dataBase.collection("StudentsList").insertOne(studentToAdd);
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return studentToAdd;
+// };
 
-/**
- * @summary delete in the Student collection the student name input
- * @param {*} dataBase
- * @param {*} req
- * @returns the student name to delete
- */
-let deleteStudentsToCollection = async (dataBase, req) => {
-  let studentName = req.body.nameToDelete;
-  // console.log(studentName);
+// /**
+//  * @summary delete in the Student collection the student name input
+//  * @param {*} dataBase
+//  * @param {*} req
+//  * @returns the student name to delete
+//  */
+// let deleteStudentsToCollection = async (dataBase, req) => {
+//   let studentName = req.body.nameToDelete;
+//   // console.log(studentName);
 
-    try {
-      await dataBase.collection("StudentsList").deleteOne({ name: studentName });
-    } catch (error) {
-      console.log(error);
-    }
-    return studentName;
-};
+//     try {
+//       await dataBase.collection("StudentsList").deleteOne({ name: studentName });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     return studentName;
+// };
 
-/**
- * @summary read the Students collection and assign the content to nameOfStudent
- * @returns an array of students stock in the collection Students (nameOfStudent)
- * @param {*} dataBase
- */
-let showStudent = async (dataBase) => {
-  const nameOfStudent = await dataBase.collection("StudentsList").find().toArray();
-  return nameOfStudent;
-};
-
-
+// /**
+//  * @summary read the Students collection and assign the content to nameOfStudent
+//  * @returns an array of students stock in the collection Students (nameOfStudent)
+//  * @param {*} dataBase
+//  */
+// let showStudent = async (dataBase) => {
+//   const nameOfStudent = await dataBase.collection("StudentsList").find().toArray();
+//   return nameOfStudent;
+// };
 
 
 
-/**
- * @summary read the Groups collection and assign  the content to nameOfGroup
- * @param {*} dataBase
- * @returns an array of groups stock in the collection Groups (nameOfGroup)
- */
-let showGroup = async (dataBase) => {
-  const nameOfGroup = await dataBase.collection("Groups").find().toArray();
-  return nameOfGroup;
-};
 
-/**
- * @summary add in the collection Groups a new group
- * @returns the name of the group we want to add
- * @param {*} dataBase
- * @param {*} req
- */
-let addToGroupsCollection = async (dataBase, req) => {
-  let myObject = {
-    groupsToAdd: req.body.tech,
-    date: req.body.date,
-    number: req.body.number,
-    names: req.body.names
-  }
-  try {
-    await dataBase.collection("Groups").insertOne(myObject);
-  } catch (error) {
-    console.log(error);
-  }
-  return myObject;
-};
+
+// /**
+//  * @summary read the Groups collection and assign  the content to nameOfGroup
+//  * @param {*} dataBase
+//  * @returns an array of groups stock in the collection Groups (nameOfGroup)
+//  */
+// let showGroup = async (dataBase) => {
+//   const nameOfGroup = await dataBase.collection("Groups").find().toArray();
+//   return nameOfGroup;
+// };
+
+// /**
+//  * @summary add in the collection Groups a new group
+//  * @returns the name of the group we want to add
+//  * @param {*} dataBase
+//  * @param {*} req
+//  */
+// let addToGroupsCollection = async (dataBase, req) => {
+//   let myObject = {
+//     groupsToAdd: req.body.tech,
+//     date: req.body.date,
+//     number: req.body.number,
+//     names: req.body.names
+//   }
+//   try {
+//     await dataBase.collection("Groups").insertOne(myObject);
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return myObject;
+// };
 

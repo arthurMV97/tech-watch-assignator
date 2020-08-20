@@ -51,7 +51,6 @@ app.post("/StudentsList", async function (req, res) {
     },
     body: JSON.stringify({
       name: req.body.name,
-      assign: false,
     }),
   })
     .then(function (response) {
@@ -136,7 +135,7 @@ app.post("/TechWatch", async function (req, res) {
       return response.json();
     })
     .then(async function (sucess) {
-      console.log(`This Tech be add to the collection: ${success.name} `);
+      console.log(`This Tech be add to the collection`);
     })
     .catch(function (error) {
       console.log("Request failure: ", error);
