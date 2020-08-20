@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>History</title>
-    <link rel="stylesheet" href="background.css" />
-    <link rel="stylesheet" href="navbar.css" />
-    <link rel="stylesheet" href="footer.css" />
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="background.css" />
+    
+    <link rel="stylesheet" href="navbar.css" />
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="next_tech_watch.css" />
+    <link rel="stylesheet" href="footer.css" />
   </head>
   <body>
     <%- include('partial/navbar') %> <%- include('partial/next_tech_watch') %>
@@ -18,7 +20,7 @@
     <div class="container">
       <% oldTab.forEach(element => { %>
 
-      <div class="sousContainer">
+      <div class="past-div">
         <h3 class="container_title"><%= element.groupsToAdd %></h3>
 
         <div class="container_student">
