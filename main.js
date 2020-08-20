@@ -38,7 +38,6 @@ app.get("/about", function (req, res) {
 ---------------------------------------------------------*/
 
 // ADD STUDENT LIST
-
 var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
   let studentData = await fetch("http://localhost:8080/StudentsList");
@@ -69,16 +68,16 @@ app.get("/TechWatch", async function (req, res) {
   res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: list});
 });
 
-//GET HISTORY TECH
-app.get("/History", async function (req, res) {
-  let obj = await Utils.sortDates();
-  await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab });
-});
-
 // POST TECH WATCH (GROUP)
 app.post("/TechWatch", async function (req, res) {
   await Utils.postTechWatch(req)
   res.redirect("TechWatch");
+});
+
+//GET HISTORY TECH
+app.get("/History", async function (req, res) {
+  let obj = await Utils.sortDates();
+  await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab });
 });
 
 //Starts the Express server with a callback

@@ -5,6 +5,10 @@ const fetch = require("node-fetch");
 ---------------------------------------------------------*/
 class Utils {
 
+
+  /*---------------------------------------------------------
+------------------------- API PART -------------------
+---------------------------------------------------------*/
   /**
    * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
    * @param {*} dataBase
@@ -86,7 +90,7 @@ class Utils {
   };
 
  /*--------------------------------------------------------
-------------------------- MAIN JS PART -------------------
+------------------------- MAIN PART ----------------------
 ---------------------------------------------------------*/
   /**
    * @returns object containing two array of date (old and new)
@@ -122,6 +126,9 @@ class Utils {
     };
     return obj;
   };
+
+
+
 
   /**
    * @return a list of student available
