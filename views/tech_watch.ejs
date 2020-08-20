@@ -18,15 +18,15 @@
 
       <form action="/TechWatch" method="POST">
         <label for="tech">Subject</label>
-        <input type="text" name="tech" />
+        <input type="text" name="tech" required/>
         <label for="date">Deadline</label>
-        <input type="date" name="date" />
+        <input type="date" name="date" required/>
         <label for="number">Number students</label>
         <input
           type="number"
           name="number"
           max="<%= listOfStudentFree.length %>"
-        />
+          required/>
         <button id="addButton" type="submit">Create Tech Watch</button>
       </form>
     </div>
