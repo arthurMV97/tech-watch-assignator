@@ -8,6 +8,10 @@
   background-color: #494f53;
 }
 
+h1 {
+  font-family: monospace;
+}
+
 .topnav a {
   text-align: center;
   color: #f2f2f2;
