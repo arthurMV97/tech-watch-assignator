@@ -4,6 +4,7 @@ const fetch = require("node-fetch");
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
 class Utils {
+
   /**
    * @summary catch the "Student "to add and push him into an array, then insert him into the collection Students
    * @param {*} dataBase
