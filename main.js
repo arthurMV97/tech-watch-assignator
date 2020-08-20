@@ -1,3 +1,6 @@
+// import helper class containing all functions CRUD (Create(post) Read(get) Update(put) Delete)
+const Utils = require("./utils/utils.js");
+
 const fetch = require("node-fetch");
 const request = require("request");
 const express = require("express"); //Imports the express module
@@ -18,8 +21,8 @@ app.use(express.static("public")); // mention the public directory from which yo
 
 // HOME
 app.get("/", async function (req, res) {
-  obj = await sortDates();
-  list = await changedList();
+  obj = await Utils.sortDates();
+  list = await Utils.changedList();
   res.render("home.ejs", { newTab: obj.newTab, list: list });
 });
 
@@ -95,14 +98,14 @@ app.post("/StudentsListDelete", async (req, res) => {
 
 //TECH WATCH
 app.get("/TechWatch", async function (req, res) {
-  let obj = await sortDates();
-  list = await changedList();
+  let obj = await Utils.sortDates();
+  list = await Utils.changedList();
   res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: list});
 });
 
 //GET HISTORY TECH
 app.get("/History", async function (req, res) {
-  let obj = await sortDates();
+  let obj = await Utils.sortDates();
   await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab });
 });
 
@@ -156,60 +159,60 @@ app.listen(PORT, function (err) {
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
 
-/**
- * @returns object containing two array of date (old and new)
- */
-async function sortDates() {
-  let techData = await fetch("http://localhost:8080/TechWatch");
-  let allTech = await techData.json();
-  //---SORT DATES
-  let tab = [];
-  let oldTab = [];
-  let newTab = [];
-  const todayDate = new Date();
-  for (let i = 0; i < allTech.length; i++) {
-    let date = new Date(allTech[i].date);
-    tab.push({ date: date, index: i });
-  }
+// /**
+//  * @returns object containing two array of date (old and new)
+//  */
+// async function sortDates() {
+//   let techData = await fetch("http://localhost:8080/TechWatch");
+//   let allTech = await techData.json();
+//   //---SORT DATES
+//   let tab = [];
+//   let oldTab = [];
+//   let newTab = [];
+//   const todayDate = new Date();
+//   for (let i = 0; i < allTech.length; i++) {
+//     let date = new Date(allTech[i].date);
+//     tab.push({ date: date, index: i });
+//   }
 
-  tab.sort((a, b) => {
-    return a.date - b.date;
-  });
+//   tab.sort((a, b) => {
+//     return a.date - b.date;
+//   });
 
-  for (let i = 0; i < tab.length; i++) {
-    if (todayDate > tab[i].date) {
-      oldTab.push(allTech[tab[i].index]);
-    } else {
-      newTab.push(allTech[tab[i].index]);
-    }
-  }
+//   for (let i = 0; i < tab.length; i++) {
+//     if (todayDate > tab[i].date) {
+//       oldTab.push(allTech[tab[i].index]);
+//     } else {
+//       newTab.push(allTech[tab[i].index]);
+//     }
+//   }
 
-  let obj = {
-    oldTab: oldTab,
-    newTab: newTab,
-  };
-  return obj;
-}
+//   let obj = {
+//     oldTab: oldTab,
+//     newTab: newTab,
+//   };
+//   return obj;
+// }
 
-/**
- * @return a list of student available
- */
-async function changedList() {
-  let newListGroup = [];
-  let newListStudents = [];
-  let techData = await fetch("http://localhost:8080/TechWatch");
-  let allTech = await techData.json();
-  const list = await fetch("http://localhost:8080/StudentsList");
-  const studentList = await list.json();
+// /**
+//  * @return a list of student available
+//  */
+// async function changedList() {
+//   let newListGroup = [];
+//   let newListStudents = [];
+//   let techData = await fetch("http://localhost:8080/TechWatch");
+//   let allTech = await techData.json();
+//   const list = await fetch("http://localhost:8080/StudentsList");
+//   const studentList = await list.json();
 
-  allTech.forEach((e) => {
-    e.names.forEach((el) => {
-      newListGroup.push(el);
-    });
-  });
-  studentList.forEach((e) => {
-    newListStudents.push(e.name);
-  });
-  let finalList = newListStudents.filter((e) => !newListGroup.includes(e));
-  return finalList;
-}
+//   allTech.forEach((e) => {
+//     e.names.forEach((el) => {
+//       newListGroup.push(el);
+//     });
+//   });
+//   studentList.forEach((e) => {
+//     newListStudents.push(e.name);
+//   });
+//   let finalList = newListStudents.filter((e) => !newListGroup.includes(e));
+//   return finalList;
+// }

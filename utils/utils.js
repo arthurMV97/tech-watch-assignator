@@ -1,3 +1,5 @@
+const fetch = require("node-fetch");
+
 /*---------------------------------------------------------
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
@@ -83,6 +85,67 @@ static addToStudentsCollection = async (dataBase, req) => {
     }
     return myObject;
   };
+
+
+  //FONCTIONS DU MAIN.JS
+  /**
+ * @returns object containing two array of date (old and new)
+ */
+static  sortDates = async function() {
+  let techData = await fetch("http://localhost:8080/TechWatch");
+  let allTech = await techData.json();
+  //---SORT DATES
+  let tab = [];
+  let oldTab = [];
+  let newTab = [];
+  const todayDate = new Date();
+  for (let i = 0; i < allTech.length; i++) {
+    let date = new Date(allTech[i].date);
+    tab.push({ date: date, index: i });
+  }
+
+  tab.sort((a, b) => {
+    return a.date - b.date;
+  });
+
+  for (let i = 0; i < tab.length; i++) {
+    if (todayDate > tab[i].date) {
+      oldTab.push(allTech[tab[i].index]);
+    } else {
+      newTab.push(allTech[tab[i].index]);
+    }
+  }
+
+  let obj = {
+    oldTab: oldTab,
+    newTab: newTab,
+  };
+  return obj;
+}
+
+/**
+ * @return a list of student available
+ */
+static changedList = async function() {
+  let newListGroup = [];
+  let newListStudents = [];
+  let techData = await fetch("http://localhost:8080/TechWatch");
+  let allTech = await techData.json();
+  const list = await fetch("http://localhost:8080/StudentsList");
+  const studentList = await list.json();
+
+  allTech.forEach((e) => {
+    e.names.forEach((el) => {
+      newListGroup.push(el);
+    });
+  });
+  studentList.forEach((e) => {
+    newListStudents.push(e.name);
+  });
+  let finalList = newListStudents.filter((e) => !newListGroup.includes(e));
+  return finalList;
+}
+
   
 }
 
