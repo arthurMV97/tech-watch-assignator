@@ -37,7 +37,7 @@ h1 {
   flex-direction: row;
 }
 .container_p {
-  color: rgb(21, 21, 173);
+  color: rgb(66, 66, 66);
   font-weight: bolder;
   align-content: space-around;
 }
@@ -46,5 +46,9 @@ h1 {
 }
 #central{
   text-align: center;
+}
+
+#studentFree li{
+  list-style: none;
 }
 

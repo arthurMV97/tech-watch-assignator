@@ -97,7 +97,8 @@ app.post("/StudentsListDelete", async (req, res) => {
 //TECH WATCH
 app.get("/TechWatch", async function (req, res) {
   let obj = await sortDates();
-  res.render("tech_watch", { newTab: obj.newTab });
+  list = await changedList();
+  res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: list});
 });
 
 //GET HISTORY TECH

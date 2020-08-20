@@ -1,22 +1,22 @@
 footer {
   background-color: black;
   color: white;
-  margin-top: 50vh;
+  margin-top: 10vh;
   padding: 5px 20px 5px 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  bottom: 0;
-  position: sticky;
+  /* bottom: 0; */
+  /* position: sticky; */
 }
 
 #contact {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin: 1em 5em;
+  margin: 0em 5em;
 }
 
 footer li {
@@ -24,5 +24,9 @@ footer li {
 }
 
 #copy {
-  margin: 1em 5em;
+  margin: 0em 1em;
+}
+
+@media (max-width: 1000px) {
+
 }

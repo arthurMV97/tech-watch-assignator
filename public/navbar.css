@@ -39,3 +39,9 @@ header {
   text-align: center;
   padding: 3% 3% 3% 3%;
 }
+
+@media (max-width: 1000px) {
+  header{
+    font-size: 15px;
+  }
+}

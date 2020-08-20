@@ -16,16 +16,7 @@
     li {
       list-style: none;
     }
-    .mainDiv {
-      text-align: center;
-      color: black;
-      border-radius: 30px 30px 30px 30px;
-      box-shadow: 5px 5px 10px 3px #4d4a4a;
-      padding: 3% 3% 3% 3%;
-      margin: 5% 15% 0% 15%;
-      margin-bottom: 5%;
-      background-color: rgba(243, 181, 217, 0.6);
-    }
+
   </style>
   <body>
     <%- include('partial/navbar') %>
@@ -42,8 +33,9 @@
       <form action="/StudentsList" method="POST">
         <label for="name">Add student</label>
         <input type="text" name="name" />
-        <button type="submit">Add student</button>
+        <button id="addButton" type="submit">Add student</button>
       </form>
+      <br>
 
       <form action="/StudentsListDelete" method="POST">
         <label for="nameToDelete">Delete student</label>
@@ -53,7 +45,7 @@
           <option><%= studentArray[i].name %></option>
           <% } %>
         </select>
-        <button type="submit">Delete student</button>
+        <button id="deleteButton" type="submit">Delete student</button>
       </form>
       
     </div>
