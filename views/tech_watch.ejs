@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="next_tech_watch.css" />
   </head>
   <body>
-    <%- include('partial/navbar') %> <%- include('partial/next_tech_watch') %>
+    <%- include('partial/navbar') %> 
+    <%- include('partial/next_tech_watch') %>
 
     <div class="central">
       <h2>Add Tech Watch</h2>
@@ -22,7 +23,7 @@
         <label for="date">Deadline</label>
         <input type="date" name="date" />
         <label for="number">Number students</label>
-        <input type="number" name="number" />
+        <input type="number" name="number" max="<%= listOfStudentFree.length %>"/>
         <button type="submit">Create Tech Watch</button>
       </form>
     </div>
