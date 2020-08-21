@@ -32,12 +32,26 @@ app.post("/StudentsList", async (request, response) => {
 });
 
 
-app.get("/StudentsList", async (request, response) => {});
+app.get("/StudentsList", async (request, response) => {
+ try {
+   const result = await StudentModel.find().exec();
+   response.send(result)
+ } catch (error) {
+  response.status(500).send(error);
+ }
+});
 
 
 
 
-app.delete("/StudentsList", async (request, response) => {});
+app.delete("/StudentsList", async (request, response) => {
+  try {
+    const result = await StudentModel.deleteOne({name: request.body.nameToDelete})
+  } catch (error) {
+    response.status(500).send(error);
+
+  }
+});
 
 
 
