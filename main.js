@@ -88,6 +88,10 @@ app.get("/History", async function (req, res) {
 app.listen(PORT, function (err) {
   if (!err) {
     console.log("http://localhost:3000/");
+    console.log("http://localhost:3000/StudentsList");
+    console.log("http://localhost:3000/TechWatch");
+    console.log("http://localhost:3000/History");
+    console.log("http://localhost:3000/About");
   } else {
     console.log(JSON.stringify(err));
   }

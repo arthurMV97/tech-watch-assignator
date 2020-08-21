@@ -23,6 +23,17 @@ const GroupModel = Mongoose.model("groups", {
   names: [String],
 });
 
+/*---------------------------------------------------------
+------------------------- HOME PART -----------------------
+---------------------------------------------------------*/
+ /* Accueil */
+ app.get("/home", async (request, response) => {
+  res.status(200).send("Vous êtes à laccueil");
+});
+
+/*---------------------------------------------------------
+------------------------- STUDENTS PART -------------------
+---------------------------------------------------------*/
 app.post("/StudentsList", async (request, response) => {
   try {
     var student = new StudentModel(request.body);
@@ -52,6 +63,9 @@ app.delete("/StudentsList", async (request, response) => {
   }
 });
 
+/*---------------------------------------------------------
+------------------------- TECHWATCH PART -------------------
+---------------------------------------------------------*/
 app.get("/TechWatch", async (request, response) => {
   try {
     const result = await GroupModel.find();
@@ -79,4 +93,5 @@ app.post("/TechWatch", async (request, response) => {
 
 app.listen(8080, () => {
   console.log("http://localhost:8080/");
+  console.log("!==> Success <==! all is good");
 });

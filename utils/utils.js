@@ -226,7 +226,7 @@ class Utils {
         return response.json();
       })
       .then(async function (sucess) {
-        console.log(`This Tech be add to the collection`);
+        console.log(`This Tech be add to the collection` + " : "+  req.body.tech);
       })
       .catch(function (error) {
         console.log("Request failure: ", error);
