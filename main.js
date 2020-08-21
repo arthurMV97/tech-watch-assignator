@@ -1,12 +1,15 @@
 // import helper class containing all functions CRUD (Create(post) Read(get) Update(put) Delete)
 const Utils = require("./utils/utils.js");
-
+const moment = require("moment")
 const fetch = require("node-fetch");
 const request = require("request");
 const express = require("express"); //Imports the express module
 const app = express(); //Creates an instance of the express module
 const ejs = require("ejs");
 const PORT = 3000;
+
+// Allow us to have dates in english
+moment.locale('en')
 /*---------------------------------------------------------
 ------------------------- MIDDLEWARE ----------------------
 ---------------------------------------------------------*/
@@ -25,7 +28,7 @@ app.use(express.static("public")); // mention the public directory from which yo
 app.get("/", async function (req, res) {
   obj = await Utils.sortDates();
   list = await Utils.changedList();
-  res.render("home.ejs", { newTab: obj.newTab, list: list });
+  res.render("home.ejs", { newTab: obj.newTab, list: list, moment: moment });
 });
 
 // ABOUT
@@ -65,7 +68,7 @@ app.post("/StudentsListDelete", async (req, res) => {
 app.get("/TechWatch", async function (req, res) {
   let obj = await Utils.sortDates();
   list = await Utils.changedList();
-  res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: list});
+  res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: list, moment: moment});
 });
 
 // POST TECH WATCH (GROUP)
@@ -77,7 +80,7 @@ app.post("/TechWatch", async function (req, res) {
 //GET HISTORY TECH
 app.get("/History", async function (req, res) {
   let obj = await Utils.sortDates();
-  await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab });
+  await res.render("history", { newTab: obj.newTab, oldTab: obj.oldTab, moment: moment });
 });
 
 //Starts the Express server with a callback

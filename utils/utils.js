@@ -1,5 +1,6 @@
 const fetch = require("node-fetch");
 
+
 /*---------------------------------------------------------
 ------------------------- FUNCTION PART -------------------
 ---------------------------------------------------------*/
@@ -96,35 +97,36 @@ class Utils {
    * @returns object containing two array of date (old and new)
    */
   static sortDates = async function () {
+    
     let techData = await fetch("http://localhost:8080/TechWatch");
     let allTech = await techData.json();
     //---SORT DATES
-    let tab = [];
+    let tabOfDates = [];
     let oldTab = [];
     let newTab = [];
     const todayDate = new Date();
-    for (let i = 0; i < allTech.length; i++) {
-      let date = new Date(allTech[i].date);
-      tab.push({ date: date, index: i });
-    }
-
-    tab.sort((a, b) => {
-      return a.date - b.date;
-    });
-
-    for (let i = 0; i < tab.length; i++) {
-      if (todayDate > tab[i].date) {
-        oldTab.push(allTech[tab[i].index]);
-      } else {
-        newTab.push(allTech[tab[i].index]);
+    
+      for (let i = 0; i < allTech.length; i++) {
+        let date = new Date(allTech[i].date);
+        tabOfDates.push({ date: date, index: i });
       }
-    }
-
-    let obj = {
-      oldTab: oldTab,
-      newTab: newTab,
-    };
-    return obj;
+  
+      tabOfDates.sort((a, b) => {
+        return a.date - b.date;
+      });
+  
+      for (let i = 0; i < tabOfDates.length; i++) {
+        if (todayDate > tabOfDates[i].date) {
+          oldTab.push(allTech[tabOfDates[i].index])
+        } else  {
+          newTab.push(allTech[tabOfDates[i].index]);
+        }
+      }
+          let obj = {
+            oldTab: oldTab,
+            newTab: newTab,
+          };
+          return obj;
   };
 
 
