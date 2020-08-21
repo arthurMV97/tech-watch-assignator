@@ -1,5 +1,5 @@
 // import helper class containing all functions CRUD (Create(post) Read(get) Update(put) Delete)
-const Utils = require("./utils/utils2.js");
+const Utils = require("./utils/utils.js");
 const moment = require("moment")
 const fetch = require("node-fetch");
 const request = require("request");
