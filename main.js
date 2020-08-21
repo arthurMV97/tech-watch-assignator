@@ -45,6 +45,7 @@ var allStudents = [];
 app.get("/StudentsList", async function (req, res) {
   let studentData = await fetch("http://localhost:8080/StudentsList");
   allStudents = await studentData.json();
+ 
   res.render("StudentsList.ejs", { studentArray: allStudents });
 });
 
@@ -67,8 +68,8 @@ app.post("/StudentsListDelete", async (req, res) => {
 //TECH WATCH
 app.get("/TechWatch", async function (req, res) {
   let obj = await Utils.sortDates();
-  list = await Utils.changedList();
-  res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: list, moment: moment});
+  changedList = await Utils.changedList();
+  res.render("tech_watch", { newTab: obj.newTab , listOfStudentFree: changedList, moment: moment});
 });
 
 // POST TECH WATCH (GROUP)

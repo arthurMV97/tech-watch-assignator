@@ -201,13 +201,12 @@ class Utils {
 
   static postTechWatch = async function (req) {
     const num = req.body.number;
-    const list = await fetch("http://localhost:8080/StudentsList");
-    const studentList = await list.json();
+    const studentListFree = await this.changedList();
     let names = [];
     for (let i = 0; i < num; i++) {
-      let random = Math.floor(Math.random() * studentList.length);
-      names.push(studentList[random].name);
-      studentList.splice(random, 1);
+      let random = Math.floor(Math.random() * studentListFree.length);
+      names.push(studentListFree[random]);
+      studentListFree.splice(random, 1);
     }
 
     await fetch("http://localhost:8080/TechWatch", {
